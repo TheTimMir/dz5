@@ -1,4 +1,4 @@
-from Lesson_1.character import Character
+from character import Character
 
 
 class UnknownAction(Exception):
@@ -10,14 +10,14 @@ class UnknownAction(Exception):
 
 
 def choose_action(player: Character, enemy: Character):
-    action = input('Выберите действие: ')
-
-    if action == 'ударить':
-        player.attack(enemy)
-    elif action == 'лечиться':
-        player.take_heal(player.damage)
-    else:
-        raise UnknownAction('Неизвестное действие')
+    action = input('Выберите действие (ударить; лечиться):\n>')
+    match action:
+        case 'ударить':
+            player.attack(enemy)
+        case 'лечиться':
+            player.take_heal(player.damage)
+        case _:
+            raise UnknownAction('Неизвестное действие')
 
 
 if __name__ == '__main__':
