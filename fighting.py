@@ -1,4 +1,5 @@
-from character import Character
+import character
+from character import *
 
 
 class UnknownAction(Exception):
@@ -10,18 +11,24 @@ class UnknownAction(Exception):
 
 
 def choose_action(player: Character, enemy: Character):
-    action = input('Выберите действие (ударить; лечиться):\n>')
+    action = input('Выберите действие(ударить; лечиться; уклониться; перезарядить(если доступно)):\n>').lower()
     match action:
+        case 'уклониться':
+            player.dodge(enemy)
         case 'ударить':
             player.attack(enemy)
         case 'лечиться':
             player.take_heal(player.damage)
+        case 'перезарядить':
+            if type(player) != Gunner:
+                raise UnknownAction('Действие недоступно для данного персонажа.')
+            player.reload()
         case _:
             raise UnknownAction('Неизвестное действие')
 
 
 if __name__ == '__main__':
-    p1 = Character(name='Vasya')
+    p1 = Gunner(name='Vasya')
     p2 = Character(name='Petya')
 
     while p1.hp > 0 and p2.hp > 0:
