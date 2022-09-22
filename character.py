@@ -53,7 +53,6 @@ class Gunner(Character):
         self.magazineSize = magazineSize
 
     def reload(self):
-        print("choooo")
         self.bullets = self.magazineSize
 
     def attack(self, target):
